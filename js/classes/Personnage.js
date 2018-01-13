@@ -126,3 +126,13 @@ Personnage.prototype.deplacer = function(direction, map) {
 		
 	return true;
 }
+
+
+
+
+
+
+
+
+// perso 2
+

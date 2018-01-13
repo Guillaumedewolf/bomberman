@@ -1,8 +1,8 @@
 {
 
-    "tileset" : "level_tile.png",
+    "tileset" : "caisse.png",
 
-    "terrain" : [
+    "caisse" : [
 
         [1, 1, 1, 1, 1, 1, 1, 1, 1,  1,  1,  1,  1,  1,  1],
 

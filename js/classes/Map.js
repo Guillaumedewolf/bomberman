@@ -55,16 +55,3 @@ Map.prototype.dessinerMap = function(context) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
