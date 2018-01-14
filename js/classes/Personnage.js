@@ -127,12 +127,21 @@ Personnage.prototype.deplacer = function(direction, map) {
 	return true;
 }
 
+Personnage.prototype.bombe = function(map) {
+	var bombeX = this.x;
+	var bombeY = this.y
+	console.log(bombeX, bombeY)
 
+	this.tileset.dessinerTile(3, context, bombeX, bombeY)
+}
 
-
-
-
-
-
-// perso 2
-
+bombe.prototype.dessinerBombe = function (context) {
+	context.drawImage(
+		this.image, 
+		this.largeur * frame, this.direction * this.hauteur, // Point d'origine du rectangle source à prendre dans notre image
+		this.largeur, this.hauteur, // Taille du rectangle source (c'est la taille du personnage)
+		// Point de destination (dépend de la taille du personnage)
+		(this.x * 64) - (this.largeur / 2) + 32 + decalageX, (this.y * 64) - this.hauteur + 55 + decalageY,
+		this.largeur, this.hauteur // Taille du rectangle destination (c'est la taille du personnage)
+	);
+}

@@ -6,6 +6,10 @@ map.addPersonnage(joueur);
 var joueur2 = new Personnage("bomberman.png", 13, 11, DIRECTION.HAUT);
 map.addPersonnage(joueur2);
 
+
+var caisse = new Personnage("caisse.png",5,5,DIRECTION.HAUT)
+map.addPersonnage(caisse);
+
 window.onload = function() {
 	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
@@ -16,7 +20,6 @@ window.onload = function() {
 	setInterval(function() {
 		map.dessinerMap(ctx);
 	}, 40);
-	
 	// Gestion du clavier perso 1
 	window.onkeydown = function(event) {
 		// On récupère le code de la touche
@@ -35,6 +38,9 @@ window.onload = function() {
 				break;
 			case 39 :  // Flèche droite
 				joueur.deplacer(DIRECTION.DROITE, map);
+				break;
+			case 32: // barre espace
+				joueur.bombe(map);
 				break;
 		//joueur 2
 			case 122 : case 119 : case 90 : case 87 : //  z, w, Z, W

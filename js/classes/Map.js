@@ -39,6 +39,8 @@ Map.prototype.addPersonnage = function(perso) {
 	this.personnages.push(perso);
 }
 
+
+
 Map.prototype.dessinerMap = function(context) {
 	for(var i = 0, l = this.terrain.length ; i < l ; i++) {
 		var ligne = this.terrain[i];
@@ -52,6 +54,15 @@ Map.prototype.dessinerMap = function(context) {
 	for(var i = 0, l = this.personnages.length ; i < l ; i++) {
 		this.personnages[i].dessinerPersonnage(context);
 	}
+
+	// dessin bombe
+	this.tileset.dessinerBombe(context)
+
 }
+
+
+
+
+
 
 
