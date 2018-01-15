@@ -9,6 +9,8 @@ var DUREE_ANIMATION = 3;
 var DUREE_DEPLACEMENT = 5;
 
 var bombeJ1 = {
+	"joueurX" : 832,
+	"joueurY" : 704,
 	"nombreBombePosee"  : 0,
 	"tempsAvantExplosion": -1,
 	"etatAnimationBombe" : 0,
@@ -16,6 +18,8 @@ var bombeJ1 = {
 }
 
 var bombeJ2 = {
+	"joueurX" : 64,
+	"joueurY" : 64,
 	"nombreBombePosee"  : 0,
 	"tempsAvantExplosion": -1,
 	"etatAnimationBombe" : 0,
@@ -108,7 +112,7 @@ Personnage.prototype.getCoordonneesAdjacentes = function(direction) {
 	return coord;
 }
 
-Personnage.prototype.deplacer = function(direction, map) {
+Personnage.prototype.deplacer = function(direction, map, perso) {
 	// On ne peut pas se déplacer si un mouvement est déjà en cours !
 	if(this.etatAnimation >= 0) {
 		return false;
@@ -138,6 +142,18 @@ Personnage.prototype.deplacer = function(direction, map) {
 	// On effectue le déplacement
 	this.x = prochaineCase.x;
 	this.y = prochaineCase.y;
+	
+	
+	//ajout du déplacement dans la variable bombe
+	if(perso == 1){
+		bombeJ1.joueurX = this.x*64
+		bombeJ1.joueurY = this.y*64
+	}
+	else if(perso == 2){
+		bombeJ2.joueurX = this.x*64
+		bombeJ2.joueurY = this.y*64
+	}
+	
 		
 	return true;
 }
@@ -182,7 +198,9 @@ function dessinerBombe (context) {
 	if (bombeJ1.nombreBombePosee == 1){
 		bombeJ1.etatAnimationBombe = 0
 	}
+		victoire()
 		explosionBombe(context)
+
 	
 
 
@@ -201,6 +219,7 @@ function dessinerBombe (context) {
 	if (bombeJ2.nombreBombePosee == 1){
 		bombeJ2.etatAnimationBombe = 0
 		}
+		victoire()
 		explosionBombe(context)
 
 }
@@ -268,5 +287,52 @@ function explosionBombe(context) {
 		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 128, 64, 64, bombeJ2.x, bombeJ2.y+64, 64, 64)
 	}
 	
+
+}
+
+
+
+// mort des joueurs
+function victoire(){
+
+if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0 || bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 ){
+	alert("le joueur 1 est mort, le joueur 2 gagne!!")
+	bombeJ1.tempsAvantExplosion--
+	
+}
+if (bombeJ2.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 || bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0){
+	alert("le joueur 2 est mort, le joueur 1 gagne!!")
+	bombeJ1.tempsAvantExplosion--
+	
+}
+
+// victoire avec range
+/*for (i=-1; i<2 ; i++){
+	rangeX= bombeJ1.x + i*64
+	rangeX2= bombeJ2.x + i*64
+	//joueur 1 mort
+	if (bombeJ1.joueurX == rangeX && bombeJ1.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0 || bombeJ1.joueurX == rangeX && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 ){
+		alert("le joueur 1 est mort, le joueur 2 gagne!!")
+		bombeJ1.tempsAvantExplosion = -1
+	}
+	// joueur 2 mort
+	if (bombeJ2.joueurX == rangeX2 && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 || bombeJ2.joueurX == rangeX && bombeJ2.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0){
+		alert("le joueur 2 est mort, le joueur 1 gagne!!")
+		bombeJ1.tempsAvantExplosion = -1
+	}
+
+}
+for (n=-1; n<2 ; n++){
+	rangeY= bombeJ1.y + n*64
+	rangeY2= bombeJ2.y + n*64
+	if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == rangeY && bombeJ1.tempsAvantExplosion == 0 || bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 ){
+		alert("le joueur 1 est mort, le joueur 2 gagne!!")
+		bombeJ1.tempsAvantExplosion = -1
+}
+	if (bombeJ2.joueurX == bombeJ2.x && bombeJ1.joueurY == rangeY2 && bombeJ2.tempsAvantExplosion == 0 || bombeJ2.joueurX == rangeX && bombeJ2.joueurY == rangeY && bombeJ1.tempsAvantExplosion == 0){
+		alert("le joueur 2 est mort, le joueur 1 gagne!!")
+		bombeJ1.tempsAvantExplosion = -1
+	}
+}*/
 
 }
