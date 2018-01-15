@@ -10,12 +10,16 @@ var DUREE_DEPLACEMENT = 5;
 
 var bombeJ1 = {
 	"nombreBombePosee"  : 0,
-	"tempsAvantExplosion": 0
+	"tempsAvantExplosion": -1,
+	"etatAnimationBombe" : 0,
+	"delayExplosion" : 0
 }
 
 var bombeJ2 = {
 	"nombreBombePosee"  : 0,
-	"tempsAvantExplosion": 0
+	"tempsAvantExplosion": -1,
+	"etatAnimationBombe" : 0,
+	"delayExplosion" : 0
 }
 
 
@@ -145,8 +149,8 @@ Personnage.prototype.bombe = function(map, joueur) {
 		bombeJ1.nombreBombePosee = 1
 		bombeJ1.x=this.x*64
 		bombeJ1.y=this.y*64
-		console.log (bombeJ1)
 		bombeJ1.tempsAvantExplosion=100
+		
 	}}
 	//joueur 2
 	if(joueur == 2){
@@ -154,8 +158,8 @@ Personnage.prototype.bombe = function(map, joueur) {
 		bombeJ2.nombreBombePosee = 1
 		bombeJ2.x=this.x*64
 		bombeJ2.y=this.y*64
-		console.log (bombeJ1)
 		bombeJ2.tempsAvantExplosion=100
+		
 	}}
 	
 
@@ -166,15 +170,15 @@ Personnage.prototype.bombe = function(map, joueur) {
 function dessinerBombe (context) {
 	//joueur 1
 	if(bombeJ1.nombreBombePosee == 1){
-		var img = new Image()
-		img.src = "sprites/bombe.png"
-		context.drawImage(img, bombeJ1.x , bombeJ1.y)
+		var bombeImg = new Image()
+		bombeImg.src = "sprites/bombe.png"
+		context.drawImage(bombeImg, bombeJ1.x , bombeJ1.y)
 		bombeJ1.tempsAvantExplosion--
-		console.log(bombeJ1.nombreBombePosee)
 	}
 
-	 if(bombeJ1.tempsAvantExplosion === 0){
-		bombeJ1.nombreBombePosee--
+	 if(bombeJ1.tempsAvantExplosion == 0){
+		bombeJ1.nombreBombePosee = -1
+		explosionBombe(context)
 
 	}
 
@@ -182,15 +186,85 @@ function dessinerBombe (context) {
 	//joueur 2
 
 	if(bombeJ2.nombreBombePosee == 1){
-		var img = new Image()
-		img.src = "sprites/bombe.png"
-		context.drawImage(img, bombeJ2.x , bombeJ2.y)
+		var bombeImg = new Image()
+		bombeImg.src = "sprites/bombe.png"
+		context.drawImage(bombeImg, bombeJ2.x , bombeJ2.y)
 		bombeJ2.tempsAvantExplosion--
-		console.log(bombeJ1.nombreBombePosee)
 	}
 
-	 if(bombeJ2.tempsAvantExplosion === 0){
-		bombeJ2.nombreBombePosee--
+	 if(bombeJ2.tempsAvantExplosion == 0){
+		bombeJ2.nombreBombePosee = -1
+		explosionBombe(context)
 
 	}
+}
+
+
+
+function explosionBombe(context) {
+
+	var explosionImg = new Image()
+	explosionImg.src = "sprites/explosionBombe.png"
+	//joueur 1
+	//centre de l'explosion joueur 1
+
+	if (bombeJ1.etatAnimationBombe < 8 && bombeJ1.nombreBombePosee != 1) {
+	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 0, 64, 64, bombeJ1.x, bombeJ1.y, 64, 64)
+	if(bombeJ1.delayExplosion == 1){
+		bombeJ1.etatAnimationBombe++
+		bombeJ1.delayExplosion--
+	}
+	else{
+		bombeJ1.delayExplosion++
+	}
+
+	 }
+	else if (bombeJ1.nombreBombePosee == 1){
+		bombeJ1.etatAnimationBombe = 0
+	}
+
+	//4 direction
+	
+	if (bombeJ1.etatAnimationBombe < 8 && bombeJ1.nombreBombePosee != 1) {
+		//droite
+	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 128, 64, 64, bombeJ1.x+64, bombeJ1.y, 64, 64)
+		//gauche
+	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 128, 64, 64, bombeJ1.x-64, bombeJ1.y, 64, 64)
+		//haut
+	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 128, 64, 64, bombeJ1.x, bombeJ1.y-64, 64, 64)
+		//bas
+	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 128, 64, 64, bombeJ1.x, bombeJ1.y+64, 64, 64)
+}
+
+		//joueur 2
+
+	if (bombeJ2.etatAnimationBombe < 8 && bombeJ2.nombreBombePosee != 1) {
+		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 0, 64, 64, bombeJ2.x, bombeJ2.y, 64, 64)
+		if(bombeJ2.delayExplosion == 1){
+			bombeJ2.etatAnimationBombe++
+			bombeJ2.delayExplosion--
+		}
+		else{
+			bombeJ2.delayExplosion++
+		}
+
+		 }
+		 else if (bombeJ2.nombreBombePosee == 1){
+		bombeJ2.etatAnimationBombe = 0
+		}
+
+		//4 direction
+		
+		if (bombeJ2.etatAnimationBombe < 8 && bombeJ2.nombreBombePosee != 1) {
+			//droite
+		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 128, 64, 64, bombeJ2.x+64, bombeJ2.y, 64, 64)
+			//gauche
+		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 128, 64, 64, bombeJ2.x-64, bombeJ2.y, 64, 64)
+			//haut
+		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 128, 64, 64, bombeJ2.x, bombeJ2.y-64, 64, 64)
+			//bas
+		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 128, 64, 64, bombeJ2.x, bombeJ2.y+64, 64, 64)
+	}
+	
+
 }

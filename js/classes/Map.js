@@ -57,7 +57,7 @@ Map.prototype.dessinerMap = function(context) {
 	for(var i = 0, l = this.personnages.length ; i < l ; i++) {
 		this.personnages[i].dessinerPersonnage(context);
 	}
-
+	
 
 
 
