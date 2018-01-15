@@ -178,9 +178,12 @@ function dessinerBombe (context) {
 
 	 if(bombeJ1.tempsAvantExplosion == 0){
 		bombeJ1.nombreBombePosee = -1
-		explosionBombe(context)
-
+										}
+	if (bombeJ1.nombreBombePosee == 1){
+		bombeJ1.etatAnimationBombe = 0
 	}
+		explosionBombe(context)
+	
 
 
 	//joueur 2
@@ -194,9 +197,12 @@ function dessinerBombe (context) {
 
 	 if(bombeJ2.tempsAvantExplosion == 0){
 		bombeJ2.nombreBombePosee = -1
+										}
+	if (bombeJ2.nombreBombePosee == 1){
+		bombeJ2.etatAnimationBombe = 0
+		}
 		explosionBombe(context)
 
-	}
 }
 
 
@@ -219,9 +225,7 @@ function explosionBombe(context) {
 	}
 
 	 }
-	else if (bombeJ1.nombreBombePosee == 1){
-		bombeJ1.etatAnimationBombe = 0
-	}
+	
 
 	//4 direction
 	
@@ -249,9 +253,7 @@ function explosionBombe(context) {
 		}
 
 		 }
-		 else if (bombeJ2.nombreBombePosee == 1){
-		bombeJ2.etatAnimationBombe = 0
-		}
+		
 
 		//4 direction
 		
