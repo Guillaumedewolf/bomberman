@@ -50,13 +50,16 @@ Map.prototype.dessinerMap = function(context) {
 		}
 	}
 	
+	// dessin bombe
+	dessinerBombe(context)
+
 	// Dessin des personnages
 	for(var i = 0, l = this.personnages.length ; i < l ; i++) {
 		this.personnages[i].dessinerPersonnage(context);
 	}
 
-	// dessin bombe
-	this.tileset.dessinerBombe(context)
+
+
 
 }
 

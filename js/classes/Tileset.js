@@ -23,3 +23,4 @@ Tileset.prototype.dessinerTile = function(numero, context, xDestination, yDestin
 	
 	context.drawImage(this.image, xSource, ySource, 64, 64, xDestination, yDestination, 64, 64);
 }
+

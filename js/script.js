@@ -1,14 +1,11 @@
 var map = new Map("premiere");
 
-var joueur = new Personnage("bomberman.png", 1, 1, DIRECTION.BAS);
+var joueur = new Personnage("bomberman.png", 13, 11, DIRECTION.BAS);
 map.addPersonnage(joueur);
 
-var joueur2 = new Personnage("bomberman.png", 13, 11, DIRECTION.HAUT);
+var joueur2 = new Personnage("bomberman.png", 1, 1, DIRECTION.HAUT);
 map.addPersonnage(joueur2);
 
-
-var caisse = new Personnage("caisse.png",5,5,DIRECTION.HAUT)
-map.addPersonnage(caisse);
 
 window.onload = function() {
 	var canvas = document.getElementById('canvas');
@@ -39,8 +36,8 @@ window.onload = function() {
 			case 39 :  // Flèche droite
 				joueur.deplacer(DIRECTION.DROITE, map);
 				break;
-			case 32: // barre espace
-				joueur.bombe(map);
+			case 96: // barre espace
+				joueur.bombe(map, 1);
 				break;
 		//joueur 2
 			case 122 : case 119 : case 90 : case 87 : //  z, w, Z, W
@@ -55,6 +52,9 @@ window.onload = function() {
 			case 100 : case 68 : // d, D
 				joueur2.deplacer(DIRECTION.DROITE, map);
 				break;
+			case 32:
+				joueur2.bombe(map, 2);
+				break;
 			default : 
 				//alert(key);
 				// Si la touche ne nous sert pas, nous n'avons aucune raison de bloquer son comportement normal.
@@ -66,3 +66,5 @@ window.onload = function() {
 
 
 }
+
+

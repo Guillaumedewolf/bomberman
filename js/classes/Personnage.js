@@ -8,6 +8,17 @@ var DIRECTION = {
 var DUREE_ANIMATION = 3;
 var DUREE_DEPLACEMENT = 5;
 
+var bombeJ1 = {
+	"nombreBombePosee"  : 0,
+	"tempsAvantExplosion": 0
+}
+
+var bombeJ2 = {
+	"nombreBombePosee"  : 0,
+	"tempsAvantExplosion": 0
+}
+
+
 function Personnage(url, x, y, direction) {
 	this.x = x; // (en cases)
 	this.y = y; // (en cases)
@@ -127,21 +138,59 @@ Personnage.prototype.deplacer = function(direction, map) {
 	return true;
 }
 
-Personnage.prototype.bombe = function(map) {
-	var bombeX = this.x;
-	var bombeY = this.y
-	console.log(bombeX, bombeY)
+Personnage.prototype.bombe = function(map, joueur) {
+	//joueur 1
+	if (joueur == 1){
+	if(bombeJ1.nombreBombePosee <= 0){
+		bombeJ1.nombreBombePosee = 1
+		bombeJ1.x=this.x*64
+		bombeJ1.y=this.y*64
+		console.log (bombeJ1)
+		bombeJ1.tempsAvantExplosion=100
+	}}
+	//joueur 2
+	if(joueur == 2){
+	if(bombeJ2.nombreBombePosee <= 0){
+		bombeJ2.nombreBombePosee = 1
+		bombeJ2.x=this.x*64
+		bombeJ2.y=this.y*64
+		console.log (bombeJ1)
+		bombeJ2.tempsAvantExplosion=100
+	}}
+	
 
-	this.tileset.dessinerTile(3, context, bombeX, bombeY)
+		
 }
 
-bombe.prototype.dessinerBombe = function (context) {
-	context.drawImage(
-		this.image, 
-		this.largeur * frame, this.direction * this.hauteur, // Point d'origine du rectangle source à prendre dans notre image
-		this.largeur, this.hauteur, // Taille du rectangle source (c'est la taille du personnage)
-		// Point de destination (dépend de la taille du personnage)
-		(this.x * 64) - (this.largeur / 2) + 32 + decalageX, (this.y * 64) - this.hauteur + 55 + decalageY,
-		this.largeur, this.hauteur // Taille du rectangle destination (c'est la taille du personnage)
-	);
+
+function dessinerBombe (context) {
+	//joueur 1
+	if(bombeJ1.nombreBombePosee == 1){
+		var img = new Image()
+		img.src = "sprites/bombe.png"
+		context.drawImage(img, bombeJ1.x , bombeJ1.y)
+		bombeJ1.tempsAvantExplosion--
+		console.log(bombeJ1.nombreBombePosee)
+	}
+
+	 if(bombeJ1.tempsAvantExplosion === 0){
+		bombeJ1.nombreBombePosee--
+
+	}
+
+
+	//joueur 2
+
+	if(bombeJ2.nombreBombePosee == 1){
+		var img = new Image()
+		img.src = "sprites/bombe.png"
+		context.drawImage(img, bombeJ2.x , bombeJ2.y)
+		bombeJ2.tempsAvantExplosion--
+		console.log(bombeJ1.nombreBombePosee)
+	}
+
+	 if(bombeJ2.tempsAvantExplosion === 0){
+		bombeJ2.nombreBombePosee--
+
+	}
 }
