@@ -117,7 +117,9 @@ Personnage.prototype.deplacer = function(direction, map, perso) {
 		return false
 
 	}
-
+	if(prochaineCase.x*64 == bombeJ1.x && prochaineCase.y*64 == bombeJ1.y && bombeJ1.nombreBombePosee == 1|| prochaineCase.x*64 == bombeJ2.x && prochaineCase.y*64 == bombeJ2.y && bombeJ2.nombreBombePosee == 1){
+		return false
+	}
 	// On commence l'animation
 	this.etatAnimation = 1;
 		
@@ -144,45 +146,33 @@ Personnage.prototype.deplacer = function(direction, map, perso) {
 
 // mort des joueurs
 function victoire(){
+var mortJ1 = 0
+var mortJ2 = 0
+if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
+if (bombeJ1.joueurX == bombeJ1.x+64 && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
+if (bombeJ1.joueurX == bombeJ1.x-64 && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
+if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y+64 && bombeJ1.explosion==1){mortJ1= 1}
+if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y-64 && bombeJ1.explosion==1){mortJ1= 1}
 
-// if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0 || bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 ){
-// 	alert("le joueur 1 est mort, le joueur 2 gagne!!")
-// 	bombeJ1.tempsAvantExplosion--
-	
-// }
-// if (bombeJ2.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 || bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0){
-// 	alert("le joueur 2 est mort, le joueur 1 gagne!!")
-// 	bombeJ1.tempsAvantExplosion--
-	
-// }
+if (bombeJ1.joueurX == bombeJ2.x+64 && bombeJ1.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ1= 1}
+if (bombeJ1.joueurX == bombeJ2.x-64 && bombeJ1.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ1= 1}
+if (bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y+64 && bombeJ2.explosion==1){mortJ1= 1}
+if (bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y-64 && bombeJ2.explosion==1){mortJ1= 1}
 
-// victoire avec range
-/*for (i=-1; i<2 ; i++){
-	rangeX= bombeJ1.x + i*64
-	rangeX2= bombeJ2.x + i*64
-	//joueur 1 mort
-	if (bombeJ1.joueurX == rangeX && bombeJ1.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0 || bombeJ1.joueurX == rangeX && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 ){
-		alert("le joueur 1 est mort, le joueur 2 gagne!!")
-		bombeJ1.tempsAvantExplosion = -1
-	}
-	// joueur 2 mort
-	if (bombeJ2.joueurX == rangeX2 && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 || bombeJ2.joueurX == rangeX && bombeJ2.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0){
-		alert("le joueur 2 est mort, le joueur 1 gagne!!")
-		bombeJ1.tempsAvantExplosion = -1
-	}
+if(mortJ1==1){alert("joueur 1 mort")}
 
-}
-for (n=-1; n<2 ; n++){
-	rangeY= bombeJ1.y + n*64
-	rangeY2= bombeJ2.y + n*64
-	if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == rangeY && bombeJ1.tempsAvantExplosion == 0 || bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 ){
-		alert("le joueur 1 est mort, le joueur 2 gagne!!")
-		bombeJ1.tempsAvantExplosion = -1
-}
-	if (bombeJ2.joueurX == bombeJ2.x && bombeJ1.joueurY == rangeY2 && bombeJ2.tempsAvantExplosion == 0 || bombeJ2.joueurX == rangeX && bombeJ2.joueurY == rangeY && bombeJ1.tempsAvantExplosion == 0){
-		alert("le joueur 2 est mort, le joueur 1 gagne!!")
-		bombeJ1.tempsAvantExplosion = -1
-	}
-}*/
+
+if (bombeJ2.joueurX == bombeJ1.x+64 && bombeJ2.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ2= 1}
+if (bombeJ2.joueurX == bombeJ1.x-64 && bombeJ2.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ2= 1}
+if (bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y+64 && bombeJ1.explosion==1){mortJ2= 1}
+if (bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y-64 && bombeJ1.explosion==1){mortJ2= 1}
+
+if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ2= 1}
+if (bombeJ2.joueurX == bombeJ2.x+64 && bombeJ2.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ2= 1}
+if (bombeJ2.joueurX == bombeJ2.x-64 && bombeJ2.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ2= 1}
+if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y+64 && bombeJ2.explosion==1){mortJ2= 1}
+if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y-64 && bombeJ2.explosion==1){mortJ2= 1}
+
+if(mortJ2==1){alert("joueur 2 mort")}
 
 }

@@ -1,9 +1,9 @@
 var bombeJ1 = {
-	"x":64,
-	"y":64,
+	"x":128,
+	"y":128,
 	"joueurX" : 832,
 	"joueurY" : 704,
-	"nombreBombePosee"  : 0,
+	"nombreBombePosee"  : -1,
 	"tempsAvantExplosion": -1,
 	"etatAnimationBombe" : 0,
 	"etatAnimationBombeInverse": 6,
@@ -12,11 +12,11 @@ var bombeJ1 = {
 }
 
 var bombeJ2 = {
-	"x":64,
-	"y":64,
+	"x":128,
+	"y":128,
 	"joueurX" : 64,
 	"joueurY" : 64,
-	"nombreBombePosee"  : 0,
+	"nombreBombePosee"  : -1,
 	"tempsAvantExplosion": -1,
 	"etatAnimationBombe" : 0,
 	"etatAnimationBombeInverse": 6,
@@ -32,7 +32,7 @@ Personnage.prototype.bombe = function(map, joueur) {
 		bombeJ1.nombreBombePosee = 1
 		bombeJ1.x=this.x*64
 		bombeJ1.y=this.y*64
-		bombeJ1.tempsAvantExplosion=100
+		bombeJ1.tempsAvantExplosion=50
 		
 	}}
 	//joueur 2
@@ -41,7 +41,7 @@ Personnage.prototype.bombe = function(map, joueur) {
 		bombeJ2.nombreBombePosee = 1
 		bombeJ2.x=this.x*64
 		bombeJ2.y=this.y*64
-		bombeJ2.tempsAvantExplosion=100
+		bombeJ2.tempsAvantExplosion=50
 		
 	}}
 	
@@ -52,7 +52,7 @@ Personnage.prototype.bombe = function(map, joueur) {
 
 function dessinerBombe (context) {
 	//joueur 1
-	if(bombeJ1.nombreBombePosee == 1){
+	if(bombeJ1.nombreBombePosee == 1 ){
 		var bombeImg = new Image()
 		bombeImg.src = "sprites/bombe.png"
 		context.drawImage(bombeImg, bombeJ1.x , bombeJ1.y)
@@ -67,9 +67,8 @@ function dessinerBombe (context) {
 	 	bombeJ1.explosion = 1
 		bombeJ1.nombreBombePosee = 0
 										}
-		victoire()
 		explosionBombe(context)
-
+		victoire()
 	
 
 
@@ -91,9 +90,8 @@ function dessinerBombe (context) {
 	 	bombeJ2.explosion = 1
 	 	bombeJ2.nombreBombePosee = 0
 										}
-		victoire()
 		explosionBombe(context)
-
+		victoire()
 }
 
 
@@ -114,6 +112,7 @@ function explosionBombe(context) {
 		bombeJ1.etatAnimationBombeInverse--
 		bombeJ1.etatAnimationBombe++
 		bombeJ1.delayExplosion=0
+
 		
 	}
 	else{
@@ -140,7 +139,7 @@ function explosionBombe(context) {
         if(mapData.terrain[bombeJ1Y-1][bombeJ2X] != 1 && bombeJ1.tempsAvantExplosion == 0){
 			compHautJ1=1
 			if(mapData.terrain[bombeJ1Y-1][bombeJ1X] == 4)	{mapData.terrain[bombeJ1Y-1][bombeJ1X] = 2}
-			else if(mapData.terrain[bombeJ1Y-1][bombeJ1X] == 5)	{mapData.terrain[bombeJ1Y-1][bombeJ12X] = 3}
+			else if(mapData.terrain[bombeJ1Y-1][bombeJ1X] == 5)	{mapData.terrain[bombeJ1Y-1][bombeJ1X] = 3}
         }
         else{compHautJ1 = 0}
         //bas
@@ -158,7 +157,7 @@ function explosionBombe(context) {
         }
         else{compDroiteJ1 = 0}
         //gauche
-        if(mapData.terrain[bombeJ1Y][bombeJ1X-1] != 1 && bombeJ2.tempsAvantExplosion == 0){
+        if(mapData.terrain[bombeJ1Y][bombeJ1X-1] != 1 && bombeJ1.tempsAvantExplosion == 0){
 			compGaucheJ1=1
 			if(mapData.terrain[bombeJ1Y][bombeJ1X-1] == 4)	{mapData.terrain[bombeJ1Y][bombeJ1X-1] = 2}
 			else if(mapData.terrain[bombeJ1Y][bombeJ1X-1] == 5)	{mapData.terrain[bombeJ1Y][bombeJ1X-1] = 3}	
