@@ -148,7 +148,8 @@ Personnage.prototype.deplacer = function(direction, map, perso) {
 function victoire(){
 var mortJ1 = 0
 var mortJ2 = 0
-if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
+var mort = 0
+if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1 ){mortJ1= 1}
 if (bombeJ1.joueurX == bombeJ1.x+64 && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
 if (bombeJ1.joueurX == bombeJ1.x-64 && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
 if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y+64 && bombeJ1.explosion==1){mortJ1= 1}
@@ -159,7 +160,9 @@ if (bombeJ1.joueurX == bombeJ2.x-64 && bombeJ1.joueurY == bombeJ2.y && bombeJ2.e
 if (bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y+64 && bombeJ2.explosion==1){mortJ1= 1}
 if (bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y-64 && bombeJ2.explosion==1){mortJ1= 1}
 
-if(mortJ1==1){alert("joueur 1 mort")}
+if(mortJ1==1 && mort == 0){
+	mort = 1
+	alert("joueur 1 mort")}
 
 
 if (bombeJ2.joueurX == bombeJ1.x+64 && bombeJ2.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ2= 1}
@@ -173,6 +176,8 @@ if (bombeJ2.joueurX == bombeJ2.x-64 && bombeJ2.joueurY == bombeJ2.y && bombeJ2.e
 if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y+64 && bombeJ2.explosion==1){mortJ2= 1}
 if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y-64 && bombeJ2.explosion==1){mortJ2= 1}
 
-if(mortJ2==1){alert("joueur 2 mort")}
+if(mortJ2==1 && mort == 0){
+	mort = 1
+	alert("joueur 2 mort")}
 
 }
