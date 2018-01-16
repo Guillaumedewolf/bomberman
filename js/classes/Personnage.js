@@ -8,24 +8,6 @@ var DIRECTION = {
 var DUREE_ANIMATION = 3;
 var DUREE_DEPLACEMENT = 5;
 
-var bombeJ1 = {
-	"joueurX" : 832,
-	"joueurY" : 704,
-	"nombreBombePosee"  : 0,
-	"tempsAvantExplosion": -1,
-	"etatAnimationBombe" : 0,
-	"delayExplosion" : 0
-}
-
-var bombeJ2 = {
-	"joueurX" : 64,
-	"joueurY" : 64,
-	"nombreBombePosee"  : 0,
-	"tempsAvantExplosion": -1,
-	"etatAnimationBombe" : 0,
-	"delayExplosion" : 0
-}
-
 
 function Personnage(url, x, y, direction) {
 	this.x = x; // (en cases)
@@ -113,6 +95,7 @@ Personnage.prototype.getCoordonneesAdjacentes = function(direction) {
 }
 
 Personnage.prototype.deplacer = function(direction, map, perso) {
+	
 	// On ne peut pas se déplacer si un mouvement est déjà en cours !
 	if(this.etatAnimation >= 0) {
 		return false;
@@ -128,14 +111,13 @@ Personnage.prototype.deplacer = function(direction, map, perso) {
 		// Ça ne coute pas cher et ca peut toujours servir
 		return false;
 	}
-	for(n=1;n<12;n++){
-		n++
-	for(i=1; i<12; i++){
-		i++
-	if (prochaineCase.x == i && prochaineCase.y == n){
-		return false;
-	}}}
-	
+	// bloquer les case metal
+	// bloquer les caisses
+	if(mapData.terrain[prochaineCase.y][prochaineCase.x] >= 4 ||  mapData.terrain[prochaineCase.y][prochaineCase.x] == 1){
+		return false
+
+	}
+
 	// On commence l'animation
 	this.etatAnimation = 1;
 		
@@ -158,153 +140,21 @@ Personnage.prototype.deplacer = function(direction, map, perso) {
 	return true;
 }
 
-Personnage.prototype.bombe = function(map, joueur) {
-	//joueur 1
-	if (joueur == 1){
-	if(bombeJ1.nombreBombePosee <= 0){
-		bombeJ1.nombreBombePosee = 1
-		bombeJ1.x=this.x*64
-		bombeJ1.y=this.y*64
-		bombeJ1.tempsAvantExplosion=100
-		
-	}}
-	//joueur 2
-	if(joueur == 2){
-	if(bombeJ2.nombreBombePosee <= 0){
-		bombeJ2.nombreBombePosee = 1
-		bombeJ2.x=this.x*64
-		bombeJ2.y=this.y*64
-		bombeJ2.tempsAvantExplosion=100
-		
-	}}
-	
-
-		
-}
-
-
-function dessinerBombe (context) {
-	//joueur 1
-	if(bombeJ1.nombreBombePosee == 1){
-		var bombeImg = new Image()
-		bombeImg.src = "sprites/bombe.png"
-		context.drawImage(bombeImg, bombeJ1.x , bombeJ1.y)
-		bombeJ1.tempsAvantExplosion--
-	}
-
-	 if(bombeJ1.tempsAvantExplosion == 0){
-		bombeJ1.nombreBombePosee = -1
-										}
-	if (bombeJ1.nombreBombePosee == 1){
-		bombeJ1.etatAnimationBombe = 0
-	}
-		victoire()
-		explosionBombe(context)
-
-	
-
-
-	//joueur 2
-
-	if(bombeJ2.nombreBombePosee == 1){
-		var bombeImg = new Image()
-		bombeImg.src = "sprites/bombe.png"
-		context.drawImage(bombeImg, bombeJ2.x , bombeJ2.y)
-		bombeJ2.tempsAvantExplosion--
-	}
-
-	 if(bombeJ2.tempsAvantExplosion == 0){
-		bombeJ2.nombreBombePosee = -1
-										}
-	if (bombeJ2.nombreBombePosee == 1){
-		bombeJ2.etatAnimationBombe = 0
-		}
-		victoire()
-		explosionBombe(context)
-
-}
-
-
-
-function explosionBombe(context) {
-
-	var explosionImg = new Image()
-	explosionImg.src = "sprites/explosionBombe.png"
-	//joueur 1
-	//centre de l'explosion joueur 1
-
-	if (bombeJ1.etatAnimationBombe < 8 && bombeJ1.nombreBombePosee != 1) {
-	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 0, 64, 64, bombeJ1.x, bombeJ1.y, 64, 64)
-	if(bombeJ1.delayExplosion == 1){
-		bombeJ1.etatAnimationBombe++
-		bombeJ1.delayExplosion--
-	}
-	else{
-		bombeJ1.delayExplosion++
-	}
-
-	 }
-	
-
-	//4 direction
-	
-	if (bombeJ1.etatAnimationBombe < 8 && bombeJ1.nombreBombePosee != 1) {
-		//droite
-	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 128, 64, 64, bombeJ1.x+64, bombeJ1.y, 64, 64)
-		//gauche
-	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 128, 64, 64, bombeJ1.x-64, bombeJ1.y, 64, 64)
-		//haut
-	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 128, 64, 64, bombeJ1.x, bombeJ1.y-64, 64, 64)
-		//bas
-	context.drawImage(explosionImg, bombeJ1.etatAnimationBombe*64, 128, 64, 64, bombeJ1.x, bombeJ1.y+64, 64, 64)
-}
-
-		//joueur 2
-
-	if (bombeJ2.etatAnimationBombe < 8 && bombeJ2.nombreBombePosee != 1) {
-		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 0, 64, 64, bombeJ2.x, bombeJ2.y, 64, 64)
-		if(bombeJ2.delayExplosion == 1){
-			bombeJ2.etatAnimationBombe++
-			bombeJ2.delayExplosion--
-		}
-		else{
-			bombeJ2.delayExplosion++
-		}
-
-		 }
-		
-
-		//4 direction
-		
-		if (bombeJ2.etatAnimationBombe < 8 && bombeJ2.nombreBombePosee != 1) {
-			//droite
-		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 128, 64, 64, bombeJ2.x+64, bombeJ2.y, 64, 64)
-			//gauche
-		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 128, 64, 64, bombeJ2.x-64, bombeJ2.y, 64, 64)
-			//haut
-		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 128, 64, 64, bombeJ2.x, bombeJ2.y-64, 64, 64)
-			//bas
-		context.drawImage(explosionImg, bombeJ2.etatAnimationBombe*64, 128, 64, 64, bombeJ2.x, bombeJ2.y+64, 64, 64)
-	}
-	
-
-}
-
 
 
 // mort des joueurs
 function victoire(){
 
-if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0 || bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 ){
-	alert("le joueur 1 est mort, le joueur 2 gagne!!")
-	bombeJ1.tempsAvantExplosion--
+// if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0 || bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 ){
+// 	alert("le joueur 1 est mort, le joueur 2 gagne!!")
+// 	bombeJ1.tempsAvantExplosion--
 	
-}
-if (bombeJ2.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 || bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0){
-	alert("le joueur 2 est mort, le joueur 1 gagne!!")
-	bombeJ1.tempsAvantExplosion--
+// }
+// if (bombeJ2.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y && bombeJ2.tempsAvantExplosion == 0 || bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y && bombeJ1.tempsAvantExplosion == 0){
+// 	alert("le joueur 2 est mort, le joueur 1 gagne!!")
+// 	bombeJ1.tempsAvantExplosion--
 	
-}
+// }
 
 // victoire avec range
 /*for (i=-1; i<2 ; i++){

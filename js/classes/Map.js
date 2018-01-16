@@ -1,3 +1,4 @@
+var mapData
 function Map(nom) {
 	// Création de l'objet XmlHttpRequest
 	var xhr = getXMLHttpRequest();
@@ -10,7 +11,7 @@ function Map(nom) {
 	var mapJsonData = xhr.responseText;
 	
 	// Analyse des données
-	var mapData = JSON.parse(mapJsonData);
+	mapData = JSON.parse(mapJsonData);
 	this.tileset = new Tileset(mapData.tileset);
 	this.terrain = mapData.terrain;
 	
@@ -57,7 +58,7 @@ Map.prototype.dessinerMap = function(context) {
 	for(var i = 0, l = this.personnages.length ; i < l ; i++) {
 		this.personnages[i].dessinerPersonnage(context);
 	}
-	
+
 
 
 
