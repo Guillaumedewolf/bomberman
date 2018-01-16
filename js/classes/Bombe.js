@@ -86,7 +86,7 @@ function dessinerBombe (context) {
 		bombeJ2.etatAnimationBombeInverse = 6
 		}
 
-	if(bombeJ2.tempsAvantExplosion == 0){
+	if(bombeJ2.tempsAvantExplosion == 0 && bombeJ2.nombreBombePosee == 1){
 	 	bombeJ2.explosion = 1
 	 	bombeJ2.nombreBombePosee = 0
 										}
