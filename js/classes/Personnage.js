@@ -14,6 +14,7 @@ function Personnage(url, x, y, direction) {
 	this.y = y; // (en cases)
 	this.direction = direction;
 	this.etatAnimation = -1;
+	this.range = 1
 	
 	// Chargement de l'image dans l'attribut image
 	this.image = new Image();
@@ -97,9 +98,9 @@ Personnage.prototype.getCoordonneesAdjacentes = function(direction) {
 Personnage.prototype.deplacer = function(direction, map, perso) {
 	
 	// On ne peut pas se déplacer si un mouvement est déjà en cours !
-	if(this.etatAnimation >= 0) {
-		return false;
-	}
+	// if(this.etatAnimation >= 0) {
+	// 	return false;
+	// }
 
 	// On change la direction du personnage
 	this.direction = direction;
@@ -117,27 +118,13 @@ Personnage.prototype.deplacer = function(direction, map, perso) {
 		return false
 
 	}
-	if(prochaineCase.x*64 == bombeJ1.x && prochaineCase.y*64 == bombeJ1.y && bombeJ1.nombreBombePosee == 1|| prochaineCase.x*64 == bombeJ2.x && prochaineCase.y*64 == bombeJ2.y && bombeJ2.nombreBombePosee == 1){
-		return false
-	}
+	
 	// On commence l'animation
 	this.etatAnimation = 1;
 		
 	// On effectue le déplacement
 	this.x = prochaineCase.x;
 	this.y = prochaineCase.y;
-	
-	
-	//ajout du déplacement dans la variable bombe
-	if(perso == 1){
-		bombeJ1.joueurX = this.x*64
-		bombeJ1.joueurY = this.y*64
-	}
-	else if(perso == 2){
-		bombeJ2.joueurX = this.x*64
-		bombeJ2.joueurY = this.y*64
-	}
-	
 		
 	return true;
 }
@@ -146,36 +133,36 @@ Personnage.prototype.deplacer = function(direction, map, perso) {
 
 // // mort des joueurs
 function victoire(){
-var mortJ1 = 0
-var mortJ2 = 0
-if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1 ){mortJ1= 1}
-if (bombeJ1.joueurX == bombeJ1.x+64 && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
-if (bombeJ1.joueurX == bombeJ1.x-64 && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
-if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y+64 && bombeJ1.explosion==1){mortJ1= 1}
-if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y-64 && bombeJ1.explosion==1){mortJ1= 1}
+// var mortJ1 = 0
+// var mortJ2 = 0
+// if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1 ){mortJ1= 1}
+// if (bombeJ1.joueurX == bombeJ1.x+64 && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
+// if (bombeJ1.joueurX == bombeJ1.x-64 && bombeJ1.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ1= 1}
+// if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y+64 && bombeJ1.explosion==1){mortJ1= 1}
+// if (bombeJ1.joueurX == bombeJ1.x && bombeJ1.joueurY == bombeJ1.y-64 && bombeJ1.explosion==1){mortJ1= 1}
 
-if (bombeJ1.joueurX == bombeJ2.x+64 && bombeJ1.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ1= 1}
-if (bombeJ1.joueurX == bombeJ2.x-64 && bombeJ1.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ1= 1}
-if (bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y+64 && bombeJ2.explosion==1){mortJ1= 1}
-if (bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y-64 && bombeJ2.explosion==1){mortJ1= 1}
+// if (bombeJ1.joueurX == bombeJ2.x+64 && bombeJ1.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ1= 1}
+// if (bombeJ1.joueurX == bombeJ2.x-64 && bombeJ1.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ1= 1}
+// if (bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y+64 && bombeJ2.explosion==1){mortJ1= 1}
+// if (bombeJ1.joueurX == bombeJ2.x && bombeJ1.joueurY == bombeJ2.y-64 && bombeJ2.explosion==1){mortJ1= 1}
 
-if(mortJ1==1){
-	alert("joueur 1 mort")
-	window.location.reload()}
+// if(mortJ1==1){
+// 	alert("joueur 1 mort")
+// 	window.location.reload()}
 
 
-if (bombeJ2.joueurX == bombeJ1.x+64 && bombeJ2.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ2= 1}
-if (bombeJ2.joueurX == bombeJ1.x-64 && bombeJ2.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ2= 1}
-if (bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y+64 && bombeJ1.explosion==1){mortJ2= 1}
-if (bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y-64 && bombeJ1.explosion==1){mortJ2= 1}
+// if (bombeJ2.joueurX == bombeJ1.x+64 && bombeJ2.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ2= 1}
+// if (bombeJ2.joueurX == bombeJ1.x-64 && bombeJ2.joueurY == bombeJ1.y && bombeJ1.explosion==1){mortJ2= 1}
+// if (bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y+64 && bombeJ1.explosion==1){mortJ2= 1}
+// if (bombeJ2.joueurX == bombeJ1.x && bombeJ2.joueurY == bombeJ1.y-64 && bombeJ1.explosion==1){mortJ2= 1}
 
-if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ2= 1}
-if (bombeJ2.joueurX == bombeJ2.x+64 && bombeJ2.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ2= 1}
-if (bombeJ2.joueurX == bombeJ2.x-64 && bombeJ2.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ2= 1}
-if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y+64 && bombeJ2.explosion==1){mortJ2= 1}
-if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y-64 && bombeJ2.explosion==1){mortJ2= 1}
+// if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ2= 1}
+// if (bombeJ2.joueurX == bombeJ2.x+64 && bombeJ2.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ2= 1}
+// if (bombeJ2.joueurX == bombeJ2.x-64 && bombeJ2.joueurY == bombeJ2.y && bombeJ2.explosion==1){mortJ2= 1}
+// if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y+64 && bombeJ2.explosion==1){mortJ2= 1}
+// if (bombeJ2.joueurX == bombeJ2.x && bombeJ2.joueurY == bombeJ2.y-64 && bombeJ2.explosion==1){mortJ2= 1}
 
-if(mortJ2==1){
-	alert("joueur 2 mort")
-    window.location.reload()}
+// if(mortJ2==1){
+// 	alert("joueur 2 mort")
+//     window.location.reload()}
  }

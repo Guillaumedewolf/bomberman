@@ -17,7 +17,11 @@ function Map(nom) {
 	
 	// Liste des personnages présents sur le terrain.
 	this.personnages = new Array();
+
+	// Liste des bombes présents sur le terrain.
+	this.bombes = new Array();
 }
+
 
 // Pour récupérer la taille (en tiles) de la carte
 Map.prototype.getHauteur = function() {
@@ -52,8 +56,9 @@ Map.prototype.dessinerMap = function(context) {
 	}
 	
 	// dessin bombe
-	dessinerBombe(context)
-
+	for(var i = 0, l = this.bombes.length ; i < l ; i++){
+		this.bombes[i].dessinerBombe(context)
+	}
 	// Dessin des personnages
 	for(var i = 0, l = this.personnages.length ; i < l ; i++) {
 		this.personnages[i].dessinerPersonnage(context);

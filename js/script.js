@@ -37,7 +37,7 @@ window.onload = function() {
 				joueur.deplacer(DIRECTION.DROITE, map, 1);
 				break;
 			case 96: // barre espace
-				joueur.bombe(map, 1);
+				bombe(joueur.x,joueur.y,joueur.range);
 				break;
 		//joueur 2
 			case 122 : case 119 : case 90 : case 87 : //  z, w, Z, W
@@ -53,7 +53,7 @@ window.onload = function() {
 				joueur2.deplacer(DIRECTION.DROITE, map, 2);
 				break;
 			case 32:
-				joueur2.bombe(map, 2);
+				// joueur2.bombe(map, 2);
 				break;
 			default : 
 				//alert(key);
