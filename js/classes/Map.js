@@ -18,8 +18,6 @@ function Map(nom) {
 	// Liste des personnages présents sur le terrain.
 	this.personnages = new Array();
 
-	// Liste des bombes présents sur le terrain.
-	this.bombes = new Array();
 }
 
 
@@ -55,9 +53,9 @@ Map.prototype.dessinerMap = function(context) {
 		}
 	}
 	
-	// dessin bombe
-	for(var i = 0, l = this.bombes.length ; i < l ; i++){
-		this.bombes[i].dessinerBombe(context)
+	// // dessin bombe
+	for(var i = 0, l = listeBombes.length ; i < l ; i++){
+		listeBombes[i].dessinerBombe(context)
 	}
 	// Dessin des personnages
 	for(var i = 0, l = this.personnages.length ; i < l ; i++) {

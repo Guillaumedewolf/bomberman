@@ -7,6 +7,9 @@ var joueur2 = new Personnage("bomberman.png", 1, 1, DIRECTION.HAUT);
 map.addPersonnage(joueur2);
 
 
+var listeBombes = [];
+
+
 window.onload = function() {
 	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
@@ -37,7 +40,10 @@ window.onload = function() {
 				joueur.deplacer(DIRECTION.DROITE, map, 1);
 				break;
 			case 96: // barre espace
-				bombe(joueur.x,joueur.y,joueur.range);
+				if(joueur.nombreDeBombesRestantes != 0){
+				var bombe = new Bombe (joueur.x,joueur.y,joueur.range, 1)
+				listeBombes.push(bombe);
+				joueur.nombreDeBombesRestantes--}
 				break;
 		//joueur 2
 			case 122 : case 119 : case 90 : case 87 : //  z, w, Z, W

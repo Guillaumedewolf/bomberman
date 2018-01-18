@@ -14,7 +14,8 @@ function Personnage(url, x, y, direction) {
 	this.y = y; // (en cases)
 	this.direction = direction;
 	this.etatAnimation = -1;
-	this.range = 1
+	this.range = 3
+	this.nombreDeBombesRestantes = 2
 	
 	// Chargement de l'image dans l'attribut image
 	this.image = new Image();
@@ -98,9 +99,9 @@ Personnage.prototype.getCoordonneesAdjacentes = function(direction) {
 Personnage.prototype.deplacer = function(direction, map, perso) {
 	
 	// On ne peut pas se déplacer si un mouvement est déjà en cours !
-	// if(this.etatAnimation >= 0) {
-	// 	return false;
-	// }
+	if(this.etatAnimation >= 0) {
+		return false;
+	}
 
 	// On change la direction du personnage
 	this.direction = direction;
