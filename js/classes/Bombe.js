@@ -1,3 +1,5 @@
+var bonusTab = ["rien","bombe","range"]
+var bonusRandom
 
 
 //constructor bombe
@@ -20,7 +22,7 @@ function Bombe (x,y,range, joueur) {
 		this.image.src = "sprites/bombe.png";
 
 
-		//création de la bombe
+		
     }
 
 Bombe.prototype.dessinerBombe = function(context){
@@ -63,9 +65,18 @@ Bombe.prototype.explosion = function(context){
 					if(this.animationExplosion > 6){
 					if(map.terrain[this.y/64][this.x/64+i] == 4){
 						map.terrain[this.y/64][this.x/64+i] = 2
+						//pop bonus
+						randomCaisse()
+						var bonus = new Bonus (this.x+i*64,this.y,bonusRandom)
+						listeBonus.push(bonus);
 					}
 					else if(map.terrain[this.y/64][this.x/64+i] == 5){
 						map.terrain[this.y/64][this.x/64+i] = 3
+						//pop bonus
+						randomCaisse()
+						var bonus = new Bonus (this.x+i*64,this.y,bonusRandom)
+						listeBonus.push(bonus);
+
 					}}
 
 					break
@@ -79,12 +90,20 @@ Bombe.prototype.explosion = function(context){
 				else if(i==this.range || map.terrain[this.y/64][this.x/64-i-1]==1 || map.terrain[this.y/64][this.x/64-i]>= 4){
 					context.drawImage(explosionSpriteCentreGD, this.animationExplosionInverse*64,4*64, 64, 64, this.x-i*64, this.y, 64,64 )
 						//suppression caisse
-					if(this.animationExplosion > 6){
+					if(this.animationExplosion > 4){
 					if(map.terrain[this.y/64][this.x/64-i] == 4){
 						map.terrain[this.y/64][this.x/64-i] = 2
+						//pop bonus
+						randomCaisse()
+						var bonus = new Bonus (this.x-i*64,this.y,bonusRandom)
+						listeBonus.push(bonus);
 					}
 					else if(map.terrain[this.y/64][this.x/64-i] == 5){
 						map.terrain[this.y/64][this.x/64-i] = 3
+						//pop bonus
+						randomCaisse()
+						var bonus = new Bonus (this.x-i*64,this.y,bonusRandom)
+						listeBonus.push(bonus);
 					}}
 					break
 				}
@@ -102,9 +121,17 @@ Bombe.prototype.explosion = function(context){
 					if(this.animationExplosion > 4){
 					if(map.terrain[this.y/64+i][this.x/64] == 4){
 						map.terrain[this.y/64+i][this.x/64] = 2
+						// pop bonus
+						randomCaisse()
+						var bonus = new Bonus (this.x,this.y+i*64,bonusRandom)
+						listeBonus.push(bonus);
 					}
 					else if(map.terrain[this.y/64+i][this.x/64] == 5){
 						map.terrain[this.y/64+i][this.x/64] = 3
+						//pop bonus
+						randomCaisse()
+						var bonus = new Bonus (this.x,this.y+i*64,bonusRandom)
+						listeBonus.push(bonus);
 					}}
 
 					break
@@ -121,9 +148,17 @@ Bombe.prototype.explosion = function(context){
 					if(this.animationExplosion > 6){
 					if(map.terrain[this.y/64-i][this.x/64] == 4){
 						map.terrain[this.y/64-i][this.x/64] = 2
+						//pop bonus
+						// randomCaisse()
+						var bonus = new Bonus (this.x,this.y-i*64,bonusRandom)
+						listeBonus.push(bonus);
 					}
 					else if(map.terrain[this.y/64-i][this.x/64] == 5){
 						map.terrain[this.y/64-i][this.x/64] = 3
+						//pop bonus
+						randomCaisse()
+						var bonus = new Bonus (this.x,this.y-i*64,bonusRandom)
+						listeBonus.push(bonus);
 					}}
 					break
 				}
@@ -163,28 +198,51 @@ Bombe.prototype.explosion = function(context){
 
 
 
+// bonus caisse 
 
+function randomCaisse (){
+	bonusRandom = Math.floor(Math.random() * Math.floor(bonusTab.length))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Personnage.prototype.bombe = function(map) {
-		var xBombe=this.x
-		var yBombe=this.y
-		
-		
 }
+
+
+
+function Bonus(x,y,type) {
+	this.x=x
+	this.y=y
+	this.type= type
+	this.etatAnimation = 0
+
+}
+
+
+Bonus.prototype.dessinerBonus = function(context){
+	var imgBonus = new Image()
+	imgBonus.src = "sprites/bonus.png"
+
+
+	if(this.type==0){}
+	else{
+		context.drawImage(imgBonus, 64*this.type-64,0, 64, 64, this.x, this.y, 64,64 )
+	}
+	
+
+	if(this.x == joueur.x*64 && this.y == joueur.y*64){
+		if(this.type == 1){joueur.nombreDeBombesRestantes++}
+		else if(this.type == 2){joueur.range++}
+			this.type=0
+
+	}
+	if(this.x == joueur2.x*64 && this.y == joueur2.y*64){
+		if(this.type == 1){joueur2.nombreDeBombesRestantes++}
+		else if(this.type == 2){joueur2.range++}
+			this.type=0
+
+	}
+}
+
+
+
+
+
+

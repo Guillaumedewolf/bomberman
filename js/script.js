@@ -8,6 +8,7 @@ map.addPersonnage(joueur2);
 
 
 var listeBombes = [];
+var listeBonus = [];
 
 
 window.onload = function() {

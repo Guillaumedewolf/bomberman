@@ -53,9 +53,14 @@ Map.prototype.dessinerMap = function(context) {
 		}
 	}
 	
+	
 	// // dessin bombe
 	for(var i = 0, l = listeBombes.length ; i < l ; i++){
 		listeBombes[i].dessinerBombe(context)
+	}
+	//dessin bonus
+	for(var i = 0, l = listeBonus.length ; i < l ; i++){
+		listeBonus[i].dessinerBonus(context)
 	}
 	// Dessin des personnages
 	for(var i = 0, l = this.personnages.length ; i < l ; i++) {
