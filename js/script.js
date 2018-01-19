@@ -59,7 +59,10 @@ window.onload = function() {
 				joueur2.deplacer(DIRECTION.DROITE, map, 2);
 				break;
 			case 32:
-				// joueur2.bombe(map, 2);
+				if(joueur2.nombreDeBombesRestantes != 0){
+				var bombe = new Bombe (joueur2.x,joueur2.y,joueur2.range, 2)
+				listeBombes.push(bombe);
+				joueur.nombreDeBombesRestantes--}
 				break;
 			default : 
 				//alert(key);

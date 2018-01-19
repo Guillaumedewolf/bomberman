@@ -13,6 +13,7 @@ function Bombe (x,y,range, joueur) {
         this.animationExplosion = 0
         this.animationExplosionInverse = 6
         this.delayFrameExplosion=0
+        this.etatBombe = true
 
         // Chargement de l'image dans l'attribut image
 		this.image = new Image();
@@ -45,13 +46,28 @@ Bombe.prototype.explosion = function(context){
 		explosionSpriteHautBas = new Image()
 		explosionSpriteHautBas.src = "sprites/explosionBombeHautBas.png"
 
+
+
+
+		if(this.etatBombe == true){
 			//explosion centre
 			context.drawImage(explosionSpriteCentreGD, this.animationExplosion*64,0, 64, 64, this.x, this.y, 64,64 )
+
+
 			//explosion droite
 			for(i=1 ; i<=this.range ; i++){
 				if(map.terrain[this.y/64][this.x/64+i]==1){break}
 				else if(i==this.range || map.terrain[this.y/64][this.x/64+i+1]==1||map.terrain[this.y/64][this.x/64+i]>= 4){
 					context.drawImage(explosionSpriteCentreGD, this.animationExplosion*64,3*64, 64, 64, this.x+i*64, this.y, 64,64 )
+					//suppression caisse
+					if(this.animationExplosion > 6){
+					if(map.terrain[this.y/64][this.x/64+i] == 4){
+						map.terrain[this.y/64][this.x/64+i] = 2
+					}
+					else if(map.terrain[this.y/64][this.x/64+i] == 5){
+						map.terrain[this.y/64][this.x/64+i] = 3
+					}}
+
 					break
 				}
 				else{context.drawImage(explosionSpriteCentreGD, this.animationExplosion*64,1*64, 64, 64, this.x+i*64, this.y, 64,64 )}
@@ -62,6 +78,14 @@ Bombe.prototype.explosion = function(context){
 				if(map.terrain[this.y/64][this.x/64-i]==1){break}
 				else if(i==this.range || map.terrain[this.y/64][this.x/64-i-1]==1 || map.terrain[this.y/64][this.x/64-i]>= 4){
 					context.drawImage(explosionSpriteCentreGD, this.animationExplosionInverse*64,4*64, 64, 64, this.x-i*64, this.y, 64,64 )
+						//suppression caisse
+					if(this.animationExplosion > 6){
+					if(map.terrain[this.y/64][this.x/64-i] == 4){
+						map.terrain[this.y/64][this.x/64-i] = 2
+					}
+					else if(map.terrain[this.y/64][this.x/64-i] == 5){
+						map.terrain[this.y/64][this.x/64-i] = 3
+					}}
 					break
 				}
 				else{context.drawImage(explosionSpriteCentreGD, this.animationExplosionInverse*64,2*64, 64, 64, this.x-i*64, this.y, 64,64 )}
@@ -69,21 +93,66 @@ Bombe.prototype.explosion = function(context){
 
 
 
+		//explosion Bas
+			for(i=1 ; i<=this.range ; i++){
+				if(map.terrain[this.y/64+i][this.x/64]==1){break}
+				else if(i==this.range || map.terrain[this.y/64+i+1][this.x/64]==1||map.terrain[this.y/64+i][this.x/64]>= 4){
+					context.drawImage(explosionSpriteHautBas, 0*64,this.animationExplosion*64, 64, 64, this.x, this.y+i*64, 64,64 )
+					//suppression caisse
+					if(this.animationExplosion > 4){
+					if(map.terrain[this.y/64+i][this.x/64] == 4){
+						map.terrain[this.y/64+i][this.x/64] = 2
+					}
+					else if(map.terrain[this.y/64+i][this.x/64] == 5){
+						map.terrain[this.y/64+i][this.x/64] = 3
+					}}
+
+					break
+				}
+				else{context.drawImage(explosionSpriteHautBas, 4*64,this.animationExplosion*64, 64, 64, this.x, this.y+i*64, 64,64 )}
+			}
+
+			//explosion Haut
+			for(i=1 ; i<=this.range ; i++){
+				if(map.terrain[this.y/64-i][this.x/64]==1){break}
+				else if(i==this.range || map.terrain[this.y/64-i-1][this.x/64]==1 || map.terrain[this.y/64-i][this.x/64]>= 4){
+					context.drawImage(explosionSpriteHautBas, 2*64,this.animationExplosionInverse*64, 64, 64, this.x, this.y-i*64, 64,64 )
+						//suppression caisse
+					if(this.animationExplosion > 6){
+					if(map.terrain[this.y/64-i][this.x/64] == 4){
+						map.terrain[this.y/64-i][this.x/64] = 2
+					}
+					else if(map.terrain[this.y/64-i][this.x/64] == 5){
+						map.terrain[this.y/64-i][this.x/64] = 3
+					}}
+					break
+				}
+				else{context.drawImage(explosionSpriteHautBas, 6*64,this.animationExplosionInverse*64, 64, 64, this.x, this.y-i*64, 64,64 )}
+			}
 
 
 
-			//incrémentation frame suivante aniamtion
-			this.delayFrameExplosion++
-			if(this.delayFrameExplosion == 20){
-			this.animationExplosion++
-			this.animationExplosionInverse--
-			this.delayFrameExplosion = 0
-		}
-			
+	}
+
+
 
 		if(this.animationExplosion==7){
 			this.x = 0
 			this.y = 0
+			this.etatBombe = false
+		}
+
+			
+			
+
+		
+
+		//incrémentation frame suivante aniamtion
+			this.delayFrameExplosion++
+			if(this.delayFrameExplosion == 2){
+			this.animationExplosion++
+			this.animationExplosionInverse--
+			this.delayFrameExplosion = 0
 		}
 		}
 

@@ -14,8 +14,8 @@ function Personnage(url, x, y, direction) {
 	this.y = y; // (en cases)
 	this.direction = direction;
 	this.etatAnimation = -1;
-	this.range = 3
-	this.nombreDeBombesRestantes = 2
+	this.range = 1
+	this.nombreDeBombesRestantes = 1
 	
 	// Chargement de l'image dans l'attribut image
 	this.image = new Image();
