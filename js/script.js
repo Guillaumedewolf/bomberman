@@ -1,9 +1,9 @@
 var map = new Map("premiere");
 
-var joueur = new Personnage("bomberman.png", 13, 11, DIRECTION.BAS);
+var joueur = new Personnage("bomberman.png", 13, 11, DIRECTION.HAUT);
 map.addPersonnage(joueur);
 
-var joueur2 = new Personnage("bomberman.png", 1, 1, DIRECTION.HAUT);
+var joueur2 = new Personnage("bomberman.png", 1, 1, DIRECTION.BAS);
 map.addPersonnage(joueur2);
 
 
@@ -20,6 +20,7 @@ window.onload = function() {
 	
 	setInterval(function() {
 		map.dessinerMap(ctx);
+		victoireCondition();
 	}, 40);
 	// Gestion du clavier perso 1
 	window.onkeydown = function(event) {
@@ -78,3 +79,19 @@ window.onload = function() {
 }
 
 
+// victoire
+
+function victoireCondition(){
+
+	if(victoire == 0){}
+	else if (victoire == 2){
+		document.getElementById("victoireJoueur2").innerHTML = "le joueur 2 GAGNE!"
+		document.getElementById("victoireMessage").innerHTML = "le joueur 2 GAGNE!"
+		document.getElementById("victoireMessage").style.display = "block"
+	}
+	else if (victoire == 1){
+		document.getElementById("victoireJoueur1").innerHTML = "le joueur 1 GAGNE!"
+		document.getElementById("victoireMessage").innerHTML = "le joueur 1 GAGNE!"
+		document.getElementById("victoireMessage").style.display = "block"
+	}
+}

@@ -2,6 +2,8 @@ var bonusTab = ["rien","bombe","range"]
 var bonusRandom
 
 
+var victoire = 0
+
 //constructor bombe
 
 
@@ -82,6 +84,7 @@ Bombe.prototype.explosion = function(context){
 					break
 				}
 				else{context.drawImage(explosionSpriteCentreGD, this.animationExplosion*64,1*64, 64, 64, this.x+i*64, this.y, 64,64 )}
+				
 			}
 
 			//explosion Gauche
@@ -90,7 +93,7 @@ Bombe.prototype.explosion = function(context){
 				else if(i==this.range || map.terrain[this.y/64][this.x/64-i-1]==1 || map.terrain[this.y/64][this.x/64-i]>= 4){
 					context.drawImage(explosionSpriteCentreGD, this.animationExplosionInverse*64,4*64, 64, 64, this.x-i*64, this.y, 64,64 )
 						//suppression caisse
-					if(this.animationExplosion > 4){
+					if(this.animationExplosion > 6){
 					if(map.terrain[this.y/64][this.x/64-i] == 4){
 						map.terrain[this.y/64][this.x/64-i] = 2
 						//pop bonus
@@ -108,6 +111,8 @@ Bombe.prototype.explosion = function(context){
 					break
 				}
 				else{context.drawImage(explosionSpriteCentreGD, this.animationExplosionInverse*64,2*64, 64, 64, this.x-i*64, this.y, 64,64 )}
+						
+				
 			}
 
 
@@ -118,7 +123,7 @@ Bombe.prototype.explosion = function(context){
 				else if(i==this.range || map.terrain[this.y/64+i+1][this.x/64]==1||map.terrain[this.y/64+i][this.x/64]>= 4){
 					context.drawImage(explosionSpriteHautBas, 0*64,this.animationExplosion*64, 64, 64, this.x, this.y+i*64, 64,64 )
 					//suppression caisse
-					if(this.animationExplosion > 4){
+					if(this.animationExplosion > 6 	){
 					if(map.terrain[this.y/64+i][this.x/64] == 4){
 						map.terrain[this.y/64+i][this.x/64] = 2
 						// pop bonus
@@ -137,6 +142,8 @@ Bombe.prototype.explosion = function(context){
 					break
 				}
 				else{context.drawImage(explosionSpriteHautBas, 4*64,this.animationExplosion*64, 64, 64, this.x, this.y+i*64, 64,64 )}
+
+				
 			}
 
 			//explosion Haut
@@ -163,10 +170,27 @@ Bombe.prototype.explosion = function(context){
 					break
 				}
 				else{context.drawImage(explosionSpriteHautBas, 6*64,this.animationExplosionInverse*64, 64, 64, this.x, this.y-i*64, 64,64 )}
+
+
+				
 			}
 
+			//condition victoire
+				for(i=1 ; i<=this.range ; i++){
+					if(joueur.x==this.x/64 && joueur.y == this.y/64){victoire=1}
+					else if(joueur.x==this.x/64+i && joueur.y == this.y/64){victoire=1}
+					else if(joueur2.x==this.x/64 && joueur2.y == this.y/64){victoire=2}
+					else if(joueur2.x==this.x/64+i && joueur2.y == this.y/64){victoire=2}
 
+					else if(joueur.x==this.x/64-i && joueur.y == this.y/64){victoire=1}
+					else if(joueur2.x==this.x/64-i && joueur2.y == this.y/64){victoire=2}
 
+					else if(joueur.x==this.x/64 && joueur.y == this.y/64+i){victoire=1}
+					else if(joueur2.x==this.x/64 && joueur2.y == this.y/64+i){victoire=2}
+
+					else if(joueur.x==this.x/64 && joueur.y == this.y/64-i){victoire=1}
+					else if(joueur2.x==this.x/64 && joueur2.y == this.y/64-i){victoire=2}
+				}
 	}
 
 
